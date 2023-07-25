@@ -87,6 +87,7 @@ CREATE TABLE company_info (
     company_email VARCHAR(80) DEFAULT NULL,
     company_second_email VARCHAR(80) DEFAULT NULL,
     company_agreement_status BOOLEAN DEFAULT NULL,
+    company_agreement_date DATE DEFAULT NULL,
     company_vacants_number INT(2) DEFAULT NULL,
     company_observation_desc TEXT DEFAULT NULL,
     PRIMARY KEY (company_id),
