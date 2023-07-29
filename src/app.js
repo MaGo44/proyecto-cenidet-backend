@@ -5,6 +5,7 @@ import careersRoutes from './routes/careers.routes.js'
 import gendersRoutes from './routes/genders.routes.js'
 import periodsRoutes from './routes/periods.routes.js'
 import scholarGradeRoutes from './routes/scholar_grade.routes.js'
+import agreementStatus from './routes/agreement_status.routes.js'
 import internalAdviserInfoRoutes from './routes/internal_adviser_info.routes.js'
 import companyInfoRoutes from './routes/company_info.routes.js'
 import ping from "./routes/index.routes.js"
@@ -32,6 +33,7 @@ app.use('/api',periodsRoutes)
 app.use('/api',scholarGradeRoutes)
 app.use('/api',internalAdviserInfoRoutes)
 app.use('/api',companyInfoRoutes)
+app.use('/api',agreementStatus)
 app.use(ping)
 
   app.use((req, res, next) => {

@@ -26,6 +26,12 @@ CREATE TABLE scholar_grade (
     PRIMARY KEY (grade_id)
 );
 
+CREATE TABLE agreement_status (
+    status_id INT(11) NOT NULL AUTO_INCREMENT,
+    status_name VARCHAR(100) NOT NULL,
+    PRIMARY KEY (status_id)
+);
+
 CREATE TABLE student_info (
     student_control_num INT NOT NULL,
     student_name VARCHAR(45) DEFAULT NULL,
@@ -154,5 +160,10 @@ INSERT INTO scholar_grade VALUES
     (1,'Licenciatura'),
     (2,'Maestría'),
     (3,'Doctorado');
+
+INSERT INTO agreement_status VALUES
+    (1,'En proceso'),
+    (2,'Activo'),
+    (3,'Finalizado');
 
 
