@@ -2,7 +2,7 @@ import {pool} from '../db.js'
 import multer from 'multer';
 const upload = multer({ dest: 'src/uploadDocuments/' });
 
-export const getStudentsDocuments = async (req,res) => {
+export const getStudentDocuments = async (req,res) => {
     try{
         const [rows] = await pool.query('SELECT * FROM student_documents')
         res.json(rows)
@@ -90,4 +90,4 @@ export const putStudentDocument = async (req,res) => {
         })
     }
 }
-export const deleteStudentInfo = (req,res) => res.send('eliminando estudiantes')
+export const deleteStudentDocument = (req,res) => res.send('eliminando estudiantes')
