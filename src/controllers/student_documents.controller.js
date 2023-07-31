@@ -1,4 +1,6 @@
 import {pool} from '../db.js'
+import multer from 'multer';
+const upload = multer({ dest: 'src/uploadDocuments/' });
 
 export const getStudentsDocuments = async (req,res) => {
     try{
@@ -26,25 +28,44 @@ export const getStudentDocument = async (req,res) => {
         })
     }
 }
-export const postStudentDocument = async (req,res) => {
-    const {student_id, document_type_id, document_file_name, alias, document_desc} = req.body
-    try{
-        const [rows]= await pool.query('INSERT INTO student_documents(document_id, student_id, document_type_id, document_file_name, alias, document_desc) VALUES (?,?,?,?,?,?)',
-        [student_id, document_type_id, document_file_name, alias, document_desc])
+export const postStudentDocument = async (req, res) => {
+    // Ejecutar el middleware de multer para guardar el archivo subido en el servidor
+    upload.single('myFile')(req, res, async function (err) {
+      if (err instanceof multer.MulterError) {
+        // Error de multer (por ejemplo, tamaño de archivo excedido)
+        return res.status(500).json({ message: 'Error al cargar el archivo.' });
+      } else if (err) {
+        // Otro tipo de error
+        return res.status(500).json({ message: 'Algo salió mal.' });
+      }
+  
+      // Si todo está bien, aquí puedes acceder al archivo cargado con req.file
+      const { student_id, document_type_id, alias, document_desc } = req.body;
+  
+      // Ahora puedes acceder a la información del archivo cargado con req.file
+      const document_file_name = req.file.filename;
+  
+      try {
+        const [rows] = await pool.query(
+          'INSERT INTO student_documents (student_id, document_type_id, document_file_name, alias, document_desc) VALUES (?, ?, ?, ?, ?)',
+          [student_id, document_type_id, document_file_name, alias, document_desc]
+        );
+  
         res.send({
-            student_id, 
-            document_type_id, 
-            document_file_name, 
-            alias, 
-            document_desc
-        })
-    }
-    catch(error){
+          student_id,
+          document_type_id,
+          document_file_name,
+          alias,
+          document_desc,
+        });
+      } catch (error) {
+        console.error(error);
         return res.status(500).json({
-            message:'Something goes wrong'
-        })
-    }
-}
+          message: 'Something goes wrong',
+        });
+      }
+    });
+  };
 export const putStudentDocument = async (req,res) => {
     const {id}=req.params
         const {student_id, document_type_id, document_file_name, alias} = req.body

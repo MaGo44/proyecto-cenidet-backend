@@ -125,6 +125,7 @@ CREATE TABLE student_project (
     project_contract_status BOOLEAN DEFAULT NULL,
     project_period INT(11) DEFAULT NULL,
     project_objective_desc TEXT DEFAULT NULL,
+    project_desc TEXT DEFAULT NULL,
     project_problem_desc TEXT DEFAULT NULL,
     project_results_desc TEXT DEFAULT NULL,
     project_product_desc TEXT DEFAULT NULL,
