@@ -7,6 +7,6 @@ router.get('/company_info', getCompanysInfo)
 router.get('/company_info/:id', getCompanyInfo)
 router.post('/company_info', postCompanyInfo)
 router.patch('/company_info/:id', putCompanyInfo)
-router.delete('/company_info', deleteCompanyInfo)
+router.delete('/company_info/:id', deleteCompanyInfo)
 
 export default router

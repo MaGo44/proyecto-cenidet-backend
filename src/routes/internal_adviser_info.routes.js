@@ -7,6 +7,6 @@ router.get('/internal_adviser_info', getInternalAdvisersInfo)
 router.get('/internal_adviser_info/:id', getInternalAdviserInfo)
 router.post('/internal_adviser_info', postInternalAdviserInfo)
 router.patch('/internal_adviser_info/:id', putInternalAdviserInfo)
-router.delete('/internal_adviser_info', deleteStudentInfo)
+router.delete('/internal_adviser_info/:id', deleteStudentInfo)
 
 export default router

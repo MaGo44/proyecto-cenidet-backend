@@ -33,7 +33,7 @@ CREATE TABLE agreement_status (
 );
 
 CREATE TABLE student_info (
-    student_control_num INT NOT NULL,
+    student_control_num VARCHAR(20) NOT NULL,
     student_name VARCHAR(45) DEFAULT NULL,
     student_last_name VARCHAR(45) DEFAULT NULL,
     student_second_last_name VARCHAR(45) DEFAULT NULL,
@@ -102,7 +102,7 @@ CREATE TABLE company_info (
 
 CREATE TABLE student_documents (
     document_id INT NOT NULL AUTO_INCREMENT,
-    student_id INT NOT NULL,
+    student_id VARCHAR(20) NOT NULL,
     document_type_id INT(1) DEFAULT NULL,
     document_file_name VARCHAR(100) DEFAULT NULL,
     alias VARCHAR(100) DEFAULT NULL,
@@ -113,7 +113,7 @@ CREATE TABLE student_documents (
 
 CREATE TABLE student_project (
     project_id INT NOT NULL AUTO_INCREMENT,
-    student_id INT NOT NULL,
+    student_id VARCHAR(20) NOT NULL,
     project_name VARCHAR(500) DEFAULT NULL,
     project_company_id INT NOT NULL,
     project_start_date VARCHAR(12) DEFAULT NULL,

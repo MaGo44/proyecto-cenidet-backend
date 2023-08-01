@@ -76,4 +76,18 @@ export const putInternalAdviserInfo = async (req,res) => {
         })
     }
 }
-export const deleteStudentInfo = (req,res) => res.send('eliminando estudiantes')
+export const deleteStudentInfo = async (req,res) => {
+    try{
+        const [result] = await pool.query('DELETE FROM internal_adviser_info WHERE internal_adviser_id = ?', [req.params.id])
+
+        if(result.affectedRows <= 0)return res.status(404).json({
+            message:'Internal Adviser Info not found'
+        })
+        res.sendStatus(204)
+    }
+    catch(error){
+        return res.status(500).json({
+            message:'Something goes wrong'
+        })
+    }
+}

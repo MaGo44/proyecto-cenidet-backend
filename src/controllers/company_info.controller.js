@@ -88,4 +88,18 @@ export const putCompanyInfo = async (req,res) => {
         })
     }
 }
-export const deleteCompanyInfo = (req,res) => res.send('eliminando estudiantes')
+export const deleteCompanyInfo =  async (req,res) => {
+    try{
+        const [result] = await pool.query('DELETE FROM company_info WHERE company_id = ?', [req.params.id])
+
+        if(result.affectedRows <= 0)return res.status(404).json({
+            message:'Company Info not found'
+        })
+        res.sendStatus(404)
+    }
+    catch(error){
+        return res.status(500).json({
+            message:'Something goes wrong'
+        })
+    }
+}
