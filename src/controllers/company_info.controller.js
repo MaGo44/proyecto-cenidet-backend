@@ -95,7 +95,7 @@ export const deleteCompanyInfo =  async (req,res) => {
         if(result.affectedRows <= 0)return res.status(404).json({
             message:'Company Info not found'
         })
-        res.sendStatus(404)
+        res.sendStatus(204)
     }
     catch(error){
         return res.status(500).json({
