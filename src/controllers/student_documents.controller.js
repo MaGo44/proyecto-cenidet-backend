@@ -35,6 +35,7 @@ export const postStudentDocument = async (req, res) => {
     // Ejecutar el middleware de multer para guardar el archivo subido en el servidor
     upload.single('document_file_name')(req, res, async function (err) {
       if (err instanceof multer.MulterError) {
+        console.error('Error de Multer:', err)
         // Error de multer (por ejemplo, tamaño de archivo excedido)
         return res.status(500).json({ message: 'Error al cargar el archivo.' });
       } else if (err) {
