@@ -36,6 +36,7 @@ export const getStudentDocument = async (req,res) => {
     }
 }
 export const postStudentDocument = async (req, res) => {
+  const {student_id, document_type_id, document_file_name, alias,document_desc} = req.body
   try {
     // Utiliza upload.fields() para manejar tanto campos como archivos
     upload.fields([
