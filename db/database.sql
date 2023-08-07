@@ -106,7 +106,7 @@ CREATE TABLE student_documents (
     document_type_id INT(1) DEFAULT NULL,
     document_file_name VARCHAR(100) DEFAULT NULL,
     alias VARCHAR(100) DEFAULT NULL,
-    document_desc INT(100) DEFAULT NULL,
+    document_desc VARCHAR(100) DEFAULT NULL,
     PRIMARY KEY(document_id),
     FOREIGN KEY (student_id) REFERENCES student_info(student_control_num)
 );

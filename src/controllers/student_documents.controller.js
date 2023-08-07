@@ -1,7 +1,7 @@
 import {pool} from '../db.js'
 import multer from 'multer';
 const storage = multer.diskStorage({
-  destination: 'src/uploadDocuments/',
+  destination: 'uploadDocuments/',
   filename: (req, file, cb) => {
     cb(null, file.originalname); // Puedes personalizar el nombre del archivo si lo deseas
   },
@@ -42,6 +42,7 @@ export const postStudentDocument = async (req, res) => {
     upload.fields([
       { name: 'cartaPresentacion', maxCount: 1 },
       { name: 'cartaAceptacion', maxCount: 1 },
+      { name: 'cv', maxCount: 1 },
       // ... Agrega más campos aquí si es necesario
     ])(req, res, async function (err) {
       if (err instanceof multer.MulterError) {
