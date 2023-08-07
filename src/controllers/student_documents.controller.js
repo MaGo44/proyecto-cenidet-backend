@@ -36,7 +36,6 @@ export const getStudentDocument = async (req,res) => {
     }
 }
 export const postStudentDocument = async (req, res) => {
-
   try {
     // Utiliza upload.fields() para manejar tanto campos como archivos
     upload.fields([
@@ -49,32 +48,33 @@ export const postStudentDocument = async (req, res) => {
       } else if (err) {
         return res.status(500).json({ message: 'Algo salió mal.' });
       }
-  
+
+      const { student_id, document_type_id, alias, document_desc } = req.body;
+      const files = req.files; // Objeto con los archivos adjuntos
+
       try {
-        console.log('req.body:', req.body);
-        const { student_id, document_type_id, document_file_name, alias, document_desc } = req.body;
-        const [rows] = await pool.query(
-          'INSERT INTO student_documents (student_id, document_type_id, document_file_name, alias, document_desc) VALUES (?, ?, ?, ?, ?)',
-          [student_id, document_type_id, document_file_name, alias, document_desc]
-        );
-  
-        res.send({
-          student_id,
-          document_type_id,
-          document_file_name,
-          alias,
-          document_desc,
-        });
+        for (const fieldName in files) {
+          const file = files[fieldName][0];
+          const document_file_name = file.filename;
+          const documentType = fieldName; // Usar el nombre del campo como tipo de documento
+
+          await pool.query(
+            'INSERT INTO student_documents (student_id, document_type_id, document_file_name, alias, document_desc) VALUES (?, ?, ?, ?, ?)',
+            [student_id, documentType, document_file_name, alias, document_desc]
+          );
+        }
+
+        res.status(200).json({ message: 'Archivos subidos y registrados correctamente.' });
       } catch (error) {
         console.error(error);
         return res.status(500).json({
-          message: 'Something goes wrong',
+          message: 'Algo salió mal al procesar los archivos.',
         });
       }
     });
   } catch (error) {
     console.error(error);
-    return res.status(500).json({ message: 'Something goes wrong' });
+    return res.status(500).json({ message: 'Algo salió mal.' });
   }
 };
 export const putStudentDocument = async (req,res) => {
