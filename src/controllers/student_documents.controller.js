@@ -36,7 +36,6 @@ export const getStudentDocument = async (req,res) => {
     }
 }
 export const postStudentDocument = async (req, res) => {
-  const { student_id, document_type_id, document_file_name, alias, document_desc } = req.body;
 
   try {
     // Utiliza upload.fields() para manejar tanto campos como archivos
@@ -52,6 +51,8 @@ export const postStudentDocument = async (req, res) => {
       }
   
       try {
+        console.log('req.body:', req.body);
+        const { student_id, document_type_id, document_file_name, alias, document_desc } = req.body;
         const [rows] = await pool.query(
           'INSERT INTO student_documents (student_id, document_type_id, document_file_name, alias, document_desc) VALUES (?, ?, ?, ?, ?)',
           [student_id, document_type_id, document_file_name, alias, document_desc]
