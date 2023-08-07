@@ -1,6 +1,13 @@
 import {pool} from '../db.js'
 import multer from 'multer';
-const upload = multer({ dest: 'src/uploadDocuments/' });
+const storage = multer.diskStorage({
+  destination: 'src/uploadDocuments/',
+  filename: (req, file, cb) => {
+    cb(null, file.originalname); // Puedes personalizar el nombre del archivo si lo deseas
+  },
+});
+
+const upload = multer({ storage });
 
 export const getStudentDocuments = async (req,res) => {
     try{
@@ -29,25 +36,19 @@ export const getStudentDocument = async (req,res) => {
     }
 }
 export const postStudentDocument = async (req, res) => {
-    // if (!req.file) {
-    //     return res.status(400).json({ message: 'Archivo no encontrado en la solicitud.'});
-    //   }
-    // Ejecutar el middleware de multer para guardar el archivo subido en el servidor
-    upload.single('document_file_name')(req, res, async function (err) {
+  try {
+    // Utiliza upload.fields() para manejar tanto campos como archivos
+    upload.fields([
+      { name: 'cartaPresentacion', maxCount: 1 },
+      { name: 'cartaAceptacion', maxCount: 1 },
+      // { name: 'cv', maxCount: 1 },
+      // ... Agrega más campos aquí si es necesario
+    ])(req, res, async function (err) {
       if (err instanceof multer.MulterError) {
-        console.error('Error de Multer:', err)
-        // Error de multer (por ejemplo, tamaño de archivo excedido)
         return res.status(500).json({ message: 'Error al cargar el archivo.' });
       } else if (err) {
-        // Otro tipo de error
         return res.status(500).json({ message: 'Algo salió mal.' });
       }
-  
-      // Si todo está bien, aquí puedes acceder al archivo cargado con req.file
-      const { student_id, document_type_id, alias, document_desc } = req.body;
-  
-      // Ahora puedes acceder a la información del archivo cargado con req.file
-      const document_file_name = req.file.filename;
   
       try {
         const [rows] = await pool.query(
@@ -69,6 +70,10 @@ export const postStudentDocument = async (req, res) => {
         });
       }
     });
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({ message: 'Something goes wrong' });
+    }
   };
 export const putStudentDocument = async (req,res) => {
     const {id}=req.params
