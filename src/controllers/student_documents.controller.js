@@ -48,9 +48,9 @@ export const postStudentDocument = async (req, res) => {
       // ... Agrega más campos aquí si es necesario
     ])(req, res, async function (err) {
       if (err instanceof multer.MulterError) {
-        return res.status(500).json({ message: 'Error al cargar el archivo.' });
+        return res.status(500).json({ message: 'Error al cargar el archivo.', message: err.message });
       } else if (err) {
-        return res.status(500).json({ message: 'Algo salió mal.' });
+        return res.status(500).json({ message: 'Algo salió mal.', message: err.message });
       }
   
       try {
