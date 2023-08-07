@@ -29,9 +29,9 @@ export const getStudentDocument = async (req,res) => {
     }
 }
 export const postStudentDocument = async (req, res) => {
-    if (!req.file) {
-        return res.status(400).json({ message: 'Archivo no encontrado en la solicitud.' });
-      }
+    // if (!req.file) {
+    //     return res.status(400).json({ message: 'Archivo no encontrado en la solicitud.'});
+    //   }
     // Ejecutar el middleware de multer para guardar el archivo subido en el servidor
     upload.single('document_file_name')(req, res, async function (err) {
       if (err instanceof multer.MulterError) {
