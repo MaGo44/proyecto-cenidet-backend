@@ -1,11 +1,11 @@
 import {pool} from '../db.js'
 import multer from 'multer';
-const path = require('path'); // Importa el módulo path de Node.js
+import path from 'path'; // Importa el módulo path de Node.js
 
 const storage = multer.diskStorage({
-  destination: path.join(__dirname, 'uploadDocuments/'), // Usa path.join para obtener la ruta absoluta
+  destination: path.join(__dirname, 'uploadDocuments/'),
   filename: (req, file, cb) => {
-    cb(null, file.originalname); // Puedes personalizar el nombre del archivo si lo deseas
+    cb(null, file.originalname);
   },
 });
 
