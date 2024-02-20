@@ -3,6 +3,7 @@ import {pool} from './db.js'
 import studentInfoRoutes from './routes/student_info.routes.js'
 import studentProjectRoutes from './routes/student_project.routes.js'
 import studentDocumentsRoutes from './routes/student_documents.routes.js'
+import studentProfilePicsRoutes from './routes/student_profile_pic.routes.js'
 import careersRoutes from './routes/careers.routes.js'
 import gendersRoutes from './routes/genders.routes.js'
 import periodsRoutes from './routes/periods.routes.js'
@@ -31,6 +32,7 @@ app.use((req, res, next) => {
 app.use('/api',studentInfoRoutes)
 app.use('/api',studentProjectRoutes)
 app.use('/api',studentDocumentsRoutes)
+app.use('/api',studentProfilePicsRoutes)
 app.use('/api',careersRoutes)
 app.use('/api',gendersRoutes)
 app.use('/api',periodsRoutes)

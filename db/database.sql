@@ -2,6 +2,13 @@ CREATE DATABASE IF NOT EXISTS ped;
 
 USE ped;
 
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL
+);
+
 CREATE TABLE careers (
     career_id INT(11) NOT NULL AUTO_INCREMENT,
     career_name VARCHAR(100) NOT NULL,
@@ -108,6 +115,15 @@ CREATE TABLE student_documents (
     alias VARCHAR(100) DEFAULT NULL,
     document_desc VARCHAR(100) DEFAULT NULL,
     PRIMARY KEY(document_id),
+    FOREIGN KEY (student_id) REFERENCES student_info(student_control_num)
+);
+
+CREATE TABLE student_profile_pics (
+    profile_pic_id INT NOT NULL AUTO_INCREMENT,
+    student_id VARCHAR(20) NOT NULL,
+    profile_pic_file_name VARCHAR(100) DEFAULT NULL,
+    alias VARCHAR(100) DEFAULT NULL,
+    PRIMARY KEY(profile_pic_id),
     FOREIGN KEY (student_id) REFERENCES student_info(student_control_num)
 );
 

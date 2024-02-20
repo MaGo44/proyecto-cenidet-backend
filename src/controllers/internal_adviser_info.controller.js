@@ -2,7 +2,11 @@ import {pool} from '../db.js'
 
 export const getInternalAdvisersInfo = async (req,res) => {
     try{
-        const [rows] = await pool.query('SELECT * FROM internal_adviser_info')
+        const [rows] = await pool.query(`
+        SELECT internal_adviser_info.*, careers.career_name
+        FROM internal_adviser_info
+        INNER JOIN careers
+        ON internal_adviser_info.internal_scholar_grade = careers.career_id;`)
         res.json(rows)
     }
     catch(error){

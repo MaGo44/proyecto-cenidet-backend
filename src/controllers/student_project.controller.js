@@ -29,7 +29,7 @@ export const getStudentProject = async (req,res) => {
 export const postStudentProject = async (req,res) => {
     const {student_id,  project_name, project_company_id, project_start_date, project_finish_date, project_position_name, project_area, project_external_adviser, project_internal_adviser_id, project_contract_status, project_period, project_objective_desc, project_problem_desc, project_results_desc, project_product_desc } = req.body
     try{
-        const [rows]= await pool.query('INSERT INTO student_project(student_id,  project_name, project_company_id, project_start_date, project_finish_date, project_position_name, project_area, project_external_adviser, project_internal_adviser_id, project_contract_status, project_period, project_objective_desc, project_problem_desc, project_results_desc, project_product_desc) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
+        const [rows]= await pool.query('INSERT INTO student_project(student_id,  project_name, project_company_id, project_start_date, project_finish_date, project_position_name, project_area, project_external_adviser, project_internal_adviser_id, project_contract_status, project_period, project_objective_desc, project_problem_desc, project_results_desc, project_product_desc) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)',
         [student_id,  project_name, project_company_id, project_start_date, project_finish_date, project_position_name, project_area, project_external_adviser, project_internal_adviser_id, project_contract_status, project_period, project_objective_desc, project_problem_desc, project_results_desc, project_product_desc])
         res.send({
             student_id,  
@@ -50,6 +50,7 @@ export const postStudentProject = async (req,res) => {
         })
     }
     catch(error){
+        console.log(error);
         return res.status(500).json({
             message:'Something goes wrong'
         })
