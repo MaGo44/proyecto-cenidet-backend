@@ -1,0 +1,18 @@
+# Exported from Render on 2024-05-31T21:00:36Z
+services:
+- type: web
+  name: proyecto-cenidet-1
+  runtime: static
+  repo: https://github.com/MaGo44/proyecto-cenidet
+  buildCommand: npm run generate
+  staticPublishPath: dist
+- type: web
+  name: proyecto-cenidet-backend
+  runtime: node
+  repo: https://github.com/MaGo44/proyecto-cenidet-backend
+  plan: free
+  region: oregon
+  buildCommand: npm install
+  startCommand: node index.js
+  rootDir: src
+version: "1"
